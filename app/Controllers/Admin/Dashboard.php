@@ -29,6 +29,18 @@ class Dashboard extends BaseController
         return view('Admin/Pages/Profile', $data);
     }
 
+    public function users()
+    {
+        $userModel = new UserModel();
+        $users = $userModel->findAll();
+
+        $data = [
+            'pages' => 'Users',
+            'users' => $users
+        ];
+        return view('Admin/Pages/Users', $data);
+    }
+
     public function getUserData()
     {
         $userId = session('user_id');
@@ -51,17 +63,11 @@ class Dashboard extends BaseController
         }
     }
 
-    public function editProfile($userId)
-    {
-        $userModel = new UserModel();
-        $data['user'] = $userModel->find($userId);
-
-        return view('admin/edit_profile', $data); // Ganti dengan nama view yang sesuai
-    }
-
     public function updateProfile()
     {
         $userId = $this->request->getPost('user_id');
+
+        // Initialize the data array
         $data = [
             'user_nama' => $this->request->getPost('nama'),
             'no_wa' => $this->request->getPost('no_wa'),
@@ -73,10 +79,28 @@ class Dashboard extends BaseController
             'keterangan' => $this->request->getPost('keterangan'),
         ];
 
-        $userModel = new UserModel();
-        $userModel->updateUserProfile($userId, $data);
+        $photo = $this->request->getFile('photo');
 
-        return redirect()->to(base_url("admin/user/edit/{$userId}"));
+        if ($photo->isValid()) {
+            $newPhotoName = $photo->getRandomName();
+            if ($photo->move(ROOTPATH . 'public/img/', $newPhotoName)) {
+                $data['user_foto'] = $newPhotoName;
+            } else {
+                echo "File upload failed.";
+            }
+        } else {
+            echo "Invalid file.";
+        }
+
+        // Remove empty values from the data array
+        $data = array_filter($data);
+
+        if (!empty($data)) {
+            $userModel = new UserModel();
+            $userModel->updateUserProfile($userId, $data);
+        }
+
+        return redirect()->to(base_url("admin/profile"));
     }
 
     //--------------------------------------------------------------------

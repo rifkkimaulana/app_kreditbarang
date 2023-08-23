@@ -42,8 +42,12 @@ $routes->get('/logout', 'Auth::logout');
 $routes->group('/admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'auth'], function ($routes) {
 	$routes->get('/', 'Dashboard::index');
 	$routes->get('profile', 'Dashboard::profile');
+	$routes->post('profile', 'Dashboard::updateProfile');
+	$routes->get('users', 'Dashboard::users');
+	$routes->get('user/edit/(:num)', 'Dashboard::editUser/$1');
+	$routes->post('user/update/(:num)', 'Dashboard::updateUser/$1');
+	$routes->post('user/delete/(:num)', 'Dashboard::deleteUser/$1');
 });
-
 
 /**
  * --------------------------------------------------------------------

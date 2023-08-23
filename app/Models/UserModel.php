@@ -8,7 +8,7 @@ class UserModel extends Model
 {
     protected $table = 'tb_users';
     protected $primaryKey = 'user_id';
-    protected $allowedFields = ['user_nama', 'user_username', 'user_password', 'user_level', 'email', 'no_wa', 'reset_token'];
+    protected $allowedFields = ['user_foto', 'user_nama', 'user_username', 'user_password', 'user_level', 'email', 'no_wa', 'reset_token', 'keterangan', 'instagram', 'facebook', 'tweeter'];
 
     public function getByEmailOrUsername($value)
     {

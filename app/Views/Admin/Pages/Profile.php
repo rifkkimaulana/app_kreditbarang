@@ -8,7 +8,7 @@
     <div class="row gx-4 mb-2">
         <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-                <img src="img/user/<?= $user['user_foto']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                <img src="<?= base_url('img/' . $user['user_foto']); ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
             </div>
         </div>
         <div class="col-auto my-auto">
@@ -118,7 +118,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="tab-setting" role="tab">
-            <form action="<?= base_url('admin/user'); ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= base_url('admin/profile'); ?>" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="card-body col-md-6 mx-auto">
                         <h6 class="mb-0">Edit Users</h6>
@@ -152,7 +152,7 @@
                         <h6 class="mb-0">Ubah Password</h6>
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Username : <?= $user['user_username']; ?></label>
-                            <input type="password" class="form-control" name="username">
+                            <input type="text" class="form-control" name="username">
                         </div>
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Password :</label>
@@ -160,7 +160,7 @@
                         </div>
                         <small> Kosongkan kolom password jika tidak ingin diubah.</small>
                         <div class="input-group input-group-outline my-3">
-                            <textarea type="password" class="form-control" name="password"><?= $user['keterangan']; ?></textarea>
+                            <textarea type="text" class="form-control" name="keterangan"><?= $user['keterangan']; ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="photo" class="bmd-label-floating">Ubah poto profil:</label>
