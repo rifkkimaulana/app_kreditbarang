@@ -36,6 +36,7 @@ $routes->get('/', 'Home::index');
 //$routes->get('/login', 'Auth::login');
 $routes->get('/login', 'auth::cekSessionUsers');
 $routes->post('/auth', 'Auth::login_post');
+$routes->post('/forgotPassword', 'Auth::forgotPassword');
 $routes->get('/logout', 'Auth::logout');
 
 // Set admin page
@@ -44,9 +45,7 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'a
 	$routes->get('profile', 'Dashboard::profile');
 	$routes->post('profile', 'Dashboard::updateProfile');
 	$routes->get('users', 'Dashboard::users');
-	$routes->get('user/edit/(:num)', 'Dashboard::editUser/$1');
-	$routes->post('user/update/(:num)', 'Dashboard::updateUser/$1');
-	$routes->post('user/delete/(:num)', 'Dashboard::deleteUser/$1');
+	$routes->post('users', 'Dashboard::updateUsers');
 });
 
 /**

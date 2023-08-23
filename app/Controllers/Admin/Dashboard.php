@@ -103,6 +103,34 @@ class Dashboard extends BaseController
         return redirect()->to(base_url("admin/profile"));
     }
 
+    public function updateUsers()
+    {
+        $userId = $this->request->getPost('user_id');
+
+        $data = [
+            'user_nama' => $this->request->getPost('user_nama'),
+            'user_username' => $this->request->getPost('user_username'),
+            'no_wa' => $this->request->getPost('no_wa'),
+            'email' => $this->request->getPost('email'),
+            'facebook' => $this->request->getPost('facebook'),
+            'tweeter' => $this->request->getPost('tweeter'),
+            'instagram' => $this->request->getPost('instagram'),
+            'keterangan' => $this->request->getPost('keterangan')
+        ];
+
+        $data = array_filter($data, function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        if (!empty($data)) {
+            $userModel = new UserModel();
+            $userModel->updateUserProfile($userId, $data);
+        }
+
+        return redirect()->to(base_url("admin/users"));
+    }
+
+
     //--------------------------------------------------------------------
 
 }

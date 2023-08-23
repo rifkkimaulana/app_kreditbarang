@@ -64,6 +64,10 @@ class Auth extends BaseController
 
         return redirect()->to('/admin');
     }
+
+    public function forgotPassword()
+    {
+    }
     //--------------------------------------------------------------------
 
 }
