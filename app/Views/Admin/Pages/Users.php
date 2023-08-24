@@ -1,10 +1,10 @@
 <?= $this->extend('Admin/Layout/Template'); ?>
 <?= $this->section('content'); ?>
 
-<div class="card card-body mx-3 mx-md-4 mt-3>">
+<div class="card card-body mx-3 mx-md-4 mt-3">
     <div class="table-responsive">
         <div class="container">
-            <table class="table">
+            <table class="table" id="userTable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -42,7 +42,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                        <a href="<?= base_url("admin/user/delete/{$user['user_id']}"); ?>" class="btn btn-danger">Hapus</a>
+                                        <?php if ($user['user_level'] !== 'administrator') : ?>
+                                            <a href="<?= base_url("admin/users/delete/{$user['user_id']}"); ?>" class="btn btn-danger">Hapus</a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -111,5 +113,12 @@
         </div>
     </div>
 </div>
+<link href="<?= base_url('assets/DataTables/datatables.min.css'); ?>" rel="stylesheet">
+<script src="<?= base_url('assets/DataTables/datatables.min.js'); ?>"></script>
+<script>
+    $(document).ready(function() {
+        $('#userTable').DataTable();
+    });
+</script>
 
 <?= $this->endSection(); ?>

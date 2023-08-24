@@ -130,7 +130,23 @@ class Dashboard extends BaseController
         return redirect()->to(base_url("admin/users"));
     }
 
+    public function delete($userId)
+    {
+        if (!is_numeric($userId)) {
+            return redirect()->back()->with('error', 'Invalid user ID');
+        }
 
+        $userModel = new UserModel();
+        $user = $userModel->find($userId);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        $userModel->delete($userId);
+
+        return redirect()->to(base_url('admin/users'))->with('success', 'User deleted successfully');
+    }
     //--------------------------------------------------------------------
 
 }

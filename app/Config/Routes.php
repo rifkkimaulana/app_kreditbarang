@@ -46,6 +46,7 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'a
 	$routes->post('profile', 'Dashboard::updateProfile');
 	$routes->get('users', 'Dashboard::users');
 	$routes->post('users', 'Dashboard::updateUsers');
+	$routes->add('users/delete/(:num)', 'Dashboard::delete/$1');
 });
 
 /**
